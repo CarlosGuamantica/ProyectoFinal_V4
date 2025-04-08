@@ -1,6 +1,6 @@
-# Midterm - Movie Recommendations
+# ProyectoFinal_V4
 
-## Milestone 1: Recommendation Model and First Deployment
+## ProyectoFinal_V4
 
 ### Learning goals:
 
