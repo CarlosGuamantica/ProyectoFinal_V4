@@ -1,0 +1,16 @@
+pandas
+kafka-python
+requests
+scikit-surprise
+tensorflow
+zeno
+gunicorn
+prometheus-flask-exporter
+mlflow
+Werkzeug>=2.0
+matplotlib
+prometheus_client
+Flask>=2.2.2
+scikit-learn==1.3.1
+joblib==1.3.2
+numpy>=1.24.3,<2.0.0

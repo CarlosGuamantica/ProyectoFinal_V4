@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/156f14dfdd064f02a3e7ff9e1d4d3f3a/artifacts
+end_time: 1744075140268
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: 156f14dfdd064f02a3e7ff9e1d4d3f3a
+run_name: bedecked-fly-738
+run_uuid: 156f14dfdd064f02a3e7ff9e1d4d3f3a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744075131690
+status: 3
+tags: []
+user_id: javi_

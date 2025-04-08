@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-recommender
+  labels:
+    app: movies-recommender
+spec:
+  replicas: 3  # Ejecutaremos 3 réplicas de la aplicación
+  selector:
+    matchLabels:
+      app: movies-recommender
+  template:
+    metadata:
+      labels:
+        app: movies-recommender
+      annotations:
+        prometheus.io/scrape: "true"       # Habilita scraping de Prometheus
+        prometheus.io/port: "5000"         # Puerto donde expone métricas
+        prometheus.io/path: "/metrics"     # Ruta de métricas de Prometheus
+    spec:
+      containers:
+      - name: recommender-app
+        image: movies-recommender:latest   # Nombre de la imagen Docker desplegada
+        imagePullPolicy: IfNotPresent      # Asume imagen local; usar Always si se publica en registry
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: production                # Ejecución en modo producción (opcional)
+        livenessProbe:
+          httpGet:
+            path: /health                  # Verifica que el endpoint de salud responda
+            port: 5000
+          initialDelaySeconds: 30          # Espera 30s tras iniciar el contenedor antes de chequear
+          periodSeconds: 30                # Chequea cada 30s
+        readinessProbe:
+          httpGet:
+            path: /health                  # Verifica que la app esté lista para recibir trafico
+            port: 5000
+          initialDelaySeconds: 10          # Empieza a verificar a los 10s de iniciado
+          periodSeconds: 10                # Chequea disponibilidad cada 10s
