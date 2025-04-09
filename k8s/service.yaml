@@ -9,6 +9,6 @@ spec:
   selector:
     app: movies-recommender
   ports:
-    - port: 80          # Puerto externo (LB) por donde se expondrá el servicio
-      targetPort: 5000  # Puerto del contenedor al que redirige el LB
+    - port: 80           # Puerto externo (LB) por donde se expondrá el servicio
+      targetPort: 5011   # Redirige al puerto 5011 dentro del contenedor
       protocol: TCP

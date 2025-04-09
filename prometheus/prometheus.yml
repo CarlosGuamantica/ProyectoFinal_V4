@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'movie-app-monitor'
+
+scrape_configs:
+  # Job: Prometheus (monitorea a sí mismo)
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Job: Kafka-monitoring (métricas de nuestro consumidor de Kafka -> Prometheus)
+  - job_name: 'kafka-monitoring'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['kafka-monitor:8765']
+
+  # Job: Node Exporter (métricas del sistema)
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['node-exporter:9100']

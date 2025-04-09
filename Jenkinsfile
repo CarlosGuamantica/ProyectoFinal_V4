@@ -1,47 +1,23 @@
 pipeline {
-    agent any
+    agent any;
     stages {
-        stage('Instalar dependencias') {
+        stage('Build') {
             steps {
-                // Instalamos las librerías Python requeridas
-                sh 'pip install -r requirements.txt'
+                echo 'En Python no es necesario compilar (Build paso no hace nada).'
             }
         }
-        stage('Entrenar modelos') {
+        stage('Test') {
             steps {
-                // Ejecutamos el script de entrenamiento (entrena y guarda los modelos)
-                sh 'python train_models.py'
+                sh '''
+                   echo "Instalando dependencias y ejecutando pruebas..."
+                   pip install -r app/requirements.txt
+                   pytest
+                   '''
             }
         }
-        stage('Evaluar modelos') {
+        stage('Deploy') {
             steps {
-                // Ejecutamos el script de evaluación (calcula RMSE, tiempos, etc.)
-                sh 'python evaluate_models.py'
-            }
-        }
-        stage('Construir imagen Docker') {
-            steps {
-                // Construye la imagen Docker con la aplicación y modelos (tag local "latest")
-                sh 'docker build -t movies-recommender:latest .'
-            }
-        }
-        stage('Publicar imagen') {
-            steps {
-                // (Opcional) Publicar la imagen en un registro de contenedores (Docker Hub, ECR, etc.)
-                // Descomentar y configurar las siguientes líneas si es necesario publicar la imagen:
-                // withCredentials([usernamePassword(credentialsId: 'creds-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                //     sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                //     sh 'docker tag movies-recommender:latest <usuario>/movies-recommender:latest'
-                //     sh 'docker push <usuario>/movies-recommender:latest'
-                // }
-                echo 'Imagen Docker construida localmente (sin publicar en registro externo).'
-            }
-        }
-        stage('Desplegar a Kubernetes') {
-            steps {
-                // Aplica los manifiestos de Kubernetes para desplegar la app en el cluster
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl apply -f k8s/service.yaml'
+                echo 'Etapa de despliegue simulada completada.'
             }
         }
     }

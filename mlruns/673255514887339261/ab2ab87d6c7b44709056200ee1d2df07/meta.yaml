@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/ab2ab87d6c7b44709056200ee1d2df07/artifacts
+end_time: 1744095811781
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: ab2ab87d6c7b44709056200ee1d2df07
+run_name: bald-panda-566
+run_uuid: ab2ab87d6c7b44709056200ee1d2df07
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744095802321
+status: 3
+tags: []
+user_id: javi_

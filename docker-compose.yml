@@ -1,0 +1,106 @@
+version: '3'
+services:
+  # Servicio Zookeeper (requerido por Kafka)
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - "2181:2181"
+
+  # Servicio Kafka (broker de mensajería)
+  kafka:
+    image: bitnami/kafka:3.4
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ENABLE_KRAFT=no
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092   # Anuncia "kafka" como host interno
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    ports:
+      - "9092:9092"
+
+  # Servicio Prometheus (monitorización de métricas)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  # Monta configuración Prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    depends_on:
+      - kafka   # Espera a que Kafka esté (para monitorizar métricas de Kafka)
+
+  # Exportador de métricas de nodo (Node Exporter) para métricas de sistema
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: nodeexporter
+    ports:
+      - "9100:9100"
+
+  # Servicio Grafana (visualización de métricas)
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning   # Monta configuración de datasource
+      - grafana_data:/var/lib/grafana                      # Datos persistentes de Grafana (dashboards, etc.)
+
+  # Servicio de la aplicación Flask de recomendación de películas
+  app:
+    build: ./app
+    container_name: movie_app
+    depends_on:
+      - kafka    # Inicia después de Kafka (para asegurar conexión del productor Kafka)
+    ports:
+      - "5000:5000"
+    # Si se prefiere montar código/archivos localmente en lugar de incorporarlos en la imagen, usar volumes:
+    # volumes:
+    #   - ./app:/app
+
+  # Servicio de monitoreo Kafka -> Prometheus (consume eventos de Kafka y expone métricas)
+  kafka-monitor:
+    build: ./monitoring
+    container_name: kafka_monitor
+    depends_on:
+      - kafka    # Espera a Kafka para conectar el consumidor
+    ports:
+      - "8765:8765"  # expone opcionalmente el endpoint de métricas (no indispensable, Prometheus usa red interna)
+
+  # Servicio Jenkins (Servidor CI/CD)
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root              # Ejecuta Jenkins como root para poder instalar herramientas (ej. Docker) dentro si es necesario
+    ports:
+      - "8080:8080"         # Interfaz web de Jenkins
+      - "50000:50000"       # Puerto para agentes JNLP (por si se usan agentes externos)
+    volumes:
+      - jenkins_home:/var/jenkins_home               # Persistencia de la configuración Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock    # (Opcional) Permite a Jenkins usar Docker del host para pipelines
+
+  # Servicio MLflow (seguimiento de experimentos de Machine Learning)
+  mlflow:
+    image: bitnami/mlflow:latest
+    container_name: mlflow
+    ports:
+      - "5001:5000"   # Mapea puerto interno 5000 (MLflow UI) al 5001 del host, para no chocar con Flask
+    volumes:
+      - ./mlflow:/mlflow   # Persistencia de datos de MLflow (artefactos, resultados, base de datos local)
+    # Comando para iniciar el servidor de MLflow, especificando almacenamiento
+    command: mlflow server --host 0.0.0.0 --backend-store-uri sqlite:///mlflow/mlflow.db --default-artifact-root /mlflow
+
+# Definición de volúmenes nombrados para persistencia
+volumes:
+  grafana_data:
+  jenkins_home:

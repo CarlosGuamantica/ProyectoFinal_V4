@@ -7,7 +7,7 @@ from statistics import mean
 # Configurar logging para mostrar mensajes informativos y de error
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-base_url = "http://localhost:5000/recommend"
+base_url = "http://localhost:5011/recommend"
 user_ids = range(1, 100)  # 50 user_ids
 total_requests = 2000
 successful_requests = 0
