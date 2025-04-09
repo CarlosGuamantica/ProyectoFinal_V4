@@ -1,5 +1,10 @@
 pipeline {
-    agent any;
+    agent {
+        docker {
+            image 'python:3.9'
+            args '--user root'   // Opcional: asegúrate de tener permisos para instalar dependencias
+        }
+    }
     stages {
         stage('Build') {
             steps {
@@ -10,7 +15,7 @@ pipeline {
             steps {
                 sh '''
                    echo "Instalando dependencias y ejecutando pruebas..."
-                   pip install -r app/requirements.txt
+                   pip install --no-cache-dir -r app/requirements.txt
                    pytest
                    '''
             }
