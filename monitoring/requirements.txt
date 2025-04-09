@@ -1,2 +1,4 @@
 kafka-python==2.0.2
 prometheus_client==0.15.0
+pytest
+protobuf==3.20.3
