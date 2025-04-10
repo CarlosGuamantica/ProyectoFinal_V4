@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/12caaee9c0a245479d00f1e3145f791c/artifacts
+end_time: 1744239997354
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: 12caaee9c0a245479d00f1e3145f791c
+run_name: treasured-frog-271
+run_uuid: 12caaee9c0a245479d00f1e3145f791c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744239997279
+status: 4
+tags: []
+user_id: javi_

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/d7c1c37209ed454894a602cd732a52e7/artifacts
+end_time: 1744225413428
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: d7c1c37209ed454894a602cd732a52e7
+run_name: inquisitive-shad-466
+run_uuid: d7c1c37209ed454894a602cd732a52e7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744225413342
+status: 4
+tags: []
+user_id: javi_

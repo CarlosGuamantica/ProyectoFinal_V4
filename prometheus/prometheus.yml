@@ -9,7 +9,7 @@ scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['prometheus:9090']
 
   # Job: Kafka-monitoring (métricas de nuestro consumidor de Kafka -> Prometheus)
   - job_name: 'kafka-monitoring'

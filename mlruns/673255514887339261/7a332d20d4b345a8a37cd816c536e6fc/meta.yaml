@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/7a332d20d4b345a8a37cd816c536e6fc/artifacts
+end_time: 1744225737740
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: 7a332d20d4b345a8a37cd816c536e6fc
+run_name: unruly-mole-411
+run_uuid: 7a332d20d4b345a8a37cd816c536e6fc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744225737685
+status: 4
+tags: []
+user_id: javi_

@@ -13,7 +13,7 @@ from sklearn.metrics import mean_squared_error
 import csv
 
 # Cargar datos de calificaciones
-ratings = pd.read_csv('data/ratings.csv')
+ratings = pd.read_csv('app/data/ratings.csv')
 reader = Reader(rating_scale=(1, 5))
 data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 trainset, testset = surprise_train_test_split(data, test_size=0.2, random_state=42)
@@ -24,7 +24,7 @@ with open('models/knn_model.pkl', 'rb') as f:
 with open('models/svd_model.pkl', 'rb') as f:
     svd_model = pickle.load(f)
 # Cargar modelo neuronal y mapeos
-nn_model = load_model('models/nn_model.h5')
+nn_model = load_model('models/nn_model.h5', compile=False)
 with open('models/mapping.pkl', 'rb') as f:
     mapping = pickle.load(f)
 user2idx = mapping['user2idx']

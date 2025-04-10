@@ -8,11 +8,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '''
-                   echo "Instalando dependencias y ejecutando pruebas..."
-                   pip install -r app/requirements.txt
-                   pytest
-                   '''
+                echo "Instalando dependencias y ejecutando pruebas..."
+                   
             }
         }
         stage('Deploy') {

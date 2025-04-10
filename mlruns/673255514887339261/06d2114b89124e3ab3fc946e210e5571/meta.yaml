@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/06d2114b89124e3ab3fc946e210e5571/artifacts
+end_time: 1744225727791
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: 06d2114b89124e3ab3fc946e210e5571
+run_name: gifted-tern-17
+run_uuid: 06d2114b89124e3ab3fc946e210e5571
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744225727733
+status: 4
+tags: []
+user_id: javi_

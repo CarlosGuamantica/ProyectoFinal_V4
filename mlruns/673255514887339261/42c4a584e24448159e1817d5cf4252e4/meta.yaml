@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/javi_/Music/MovieRecommendations/mlruns/673255514887339261/42c4a584e24448159e1817d5cf4252e4/artifacts
+end_time: 1744225513433
+entry_point_name: ''
+experiment_id: '673255514887339261'
+lifecycle_stage: active
+run_id: 42c4a584e24448159e1817d5cf4252e4
+run_name: gaudy-stag-606
+run_uuid: 42c4a584e24448159e1817d5cf4252e4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744225513371
+status: 4
+tags: []
+user_id: javi_
